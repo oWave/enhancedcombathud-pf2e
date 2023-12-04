@@ -48,7 +48,7 @@ Hooks.on("argonInit", async (CoreHUD: any) => {
     }
 
     async _getButtons() {
-      return (this.actor as ActorPF2e).system.actions?.map((e) => new StrikeButton(e))
+      return (this.actor as ActorPF2e).system.actions?.filter(a => a.ready)?.map((e) => new StrikeButton(e))
     }
   }
 

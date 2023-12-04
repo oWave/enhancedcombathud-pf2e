@@ -36,11 +36,12 @@ export class StrikeButton extends CONFIG.ARGON.CORE.ArgonComponent {
 
   activateListeners() {
     this.element.querySelectorAll<HTMLButtonElement>("button.ech-strike-button").forEach((button) =>
-      button.addEventListener("click", async () => {
+      button.addEventListener("click", async (event) => {
         console.log("MAP " + button.dataset.index)
         debugger
-        await this.strike?.variants[Number(button.dataset.index)]?.roll({})
+        await this.strike?.variants[Number(button.dataset.index)]?.roll({ event })
       })
     )
   }
 }
+
