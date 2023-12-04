@@ -1,0 +1,15 @@
+:root .damage.color.bludgeoning[data-action="toggle-versatile"], :root .damage.color.piercing[data-action="toggle-versatile"], :root .damage.color.slashing[data-action="toggle-versatile"] {
+    width: 100%;
+    margin: 0 1px;
+    background: rgba(255, 255, 240, 0.8);
+    border: 1px solid var(--color-border-light-primary);
+    border-radius: 3px;
+    font-size: var(--font-size-14);
+    line-height: 28px;
+    font-family: var(--font-primary);
+    cursor: pointer;
+}
+
+:root .damage.color.bludgeoning.selected[data-action="toggle-versatile"], :root .damage.color.piercing.selected[data-action="toggle-versatile"], :root .damage.color.slashing.selected[data-action="toggle-versatile"] {
+    background: var(--text-dark);
+}

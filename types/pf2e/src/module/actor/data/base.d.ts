@@ -242,6 +242,7 @@ interface StrikeData extends StatisticModifier {
   /** The weapon or melee item--possibly ephemeral--being used for the strike */
   item: WeaponPF2e<ActorPF2e> | MeleePF2e<ActorPF2e>
   visible: boolean
+  versatileOptions: []
 }
 /** Any skill or similar which provides a roll option for rolling this save. */
 interface Rollable {
