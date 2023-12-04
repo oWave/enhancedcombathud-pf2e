@@ -1,0 +1,24 @@
+import type { ActorPF2e } from "types/pf2e/src/module/actor/index.ts"
+import { ItemPF2e } from "types/pf2e/src/module/item/index.ts"
+import { ActionCost, Frequency, ItemSummaryData } from "types/pf2e/src/module/item/base/data/index.ts"
+import { RangeData } from "types/pf2e/src/module/item/types.ts"
+import type { UserPF2e } from "types/pf2e/src/module/user/index.ts"
+import { AbilityItemSource, AbilitySystemData } from "./data.ts";
+import { ActionTrait } from "./types.ts";
+declare class AbilityItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
+    range: RangeData | null;
+    get traits(): Set<ActionTrait>;
+    get actionCost(): ActionCost | null;
+    get frequency(): Frequency | null;
+    prepareBaseData(): void;
+    onPrepareSynthetics(this: AbilityItemPF2e<ActorPF2e>): void;
+    getRollOptions(prefix?: string): string[];
+    getChatData(this: AbilityItemPF2e<ActorPF2e>, htmlOptions?: EnrichmentOptions): Promise<ItemSummaryData>;
+    protected _preCreate(data: this["_source"], options: DocumentModificationContext<TParent>, user: UserPF2e): Promise<boolean | void>;
+    protected _preUpdate(changed: DeepPartial<this["_source"]>, options: DocumentModificationContext<TParent>, user: UserPF2e): Promise<boolean | void>;
+}
+interface AbilityItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
+    readonly _source: AbilityItemSource;
+    system: AbilitySystemData;
+}
+export { AbilityItemPF2e };

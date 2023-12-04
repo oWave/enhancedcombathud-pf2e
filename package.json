@@ -1,0 +1,28 @@
+{
+  "name": "template",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "watch": "esbuild src/module.ts --outfile=dist/module.js --sourcemap --bundle --watch",
+    "build": "esbuild src/module.ts --outfile=dist/module.js --bundle",
+    "lint": "eslint src/"
+  },
+  "keywords": [],
+  "author": "oWave",
+  "license": "ISC",
+  "dependencies": {
+    "@types/node": "^20.5.2",
+    "@types/jquery": "^3.5.16",
+    "@types/tooltipster": "^0.0.32",
+    "@typescript-eslint/eslint-plugin": "^6.4.1",
+    "@typescript-eslint/parser": "^6.4.1",
+    "esbuild": "^0.19.2",
+    "eslint": "^8.47.0",
+    "typescript": "^5.1.6"
+  },
+  "devDependencies": {},
+  "prettier": {
+    "semi": false
+  }
+}

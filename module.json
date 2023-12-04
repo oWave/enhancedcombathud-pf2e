@@ -1,0 +1,39 @@
+{
+  "id": "enhancedcombathud-pf2e",
+  "title": "enhancedcombathud-pf2e",
+  "description": "pf2e integration for Argon HUD",
+  "authors": [
+    {
+      "name": "oWave"
+    }
+  ],
+  "compatibility": {
+    "minimum": "11",
+    "verified": "11"
+  },
+  "esmodules": [
+    "dist/module.js"
+  ],
+  "relationships": {
+    "systems": [
+      {
+        "id": "pf2e",
+        "type": "system",
+        "compatibility": {
+          "minimum": "5.0.1"
+        }
+      }
+    ],
+    "requires": [
+      {
+        "id": "enhancedcombathud",
+        "type": "module",
+        "compatibility": {}
+      }
+    ]
+  },
+  "version": "",
+  "url": "",
+  "manifest": "",
+  "download": ""
+}

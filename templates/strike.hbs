@@ -1,0 +1,16 @@
+<div>
+  <div style="display: flex; flex-direction: column; width: 100%; align-items: stretch;">
+    {{#each buttons}}
+      <button class="ech-strike-button" data-index="{{this.index}}">
+          {{#if this.index}}
+            <span>{{this.label}}</span>
+          {{else}}
+            <span>Strike <span class="action-glyph">{{this.glyph}}</span> {{this.label}}</span>
+          {{/if}}
+        </button>
+    {{/each}}
+    <div style="display: flex; align-items: center;">
+      <img src="{{icon}}" style="height: 30px;">
+      <span>{{label}}</span>
+    </div>
+</div>
