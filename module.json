@@ -15,7 +15,7 @@
     "dist/module.js"
   ],
   "styles": [
-    "enhancedcombathud-pf2e.css"
+    "styles/enhancedcombathud-pf2e.css"
   ],
   "relationships": {
     "systems": [
@@ -34,6 +34,20 @@
         "compatibility": {}
       }
     ]
+  },
+  "flags": {
+    "hotReload": {
+      "extensions": [
+        "css",
+        "html",
+        "hbs",
+        "json"
+      ],
+      "paths": [
+        "templates",
+        "styles"
+      ]
+    }
   },
   "version": "",
   "url": "",
