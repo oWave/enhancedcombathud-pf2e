@@ -35,6 +35,7 @@ declare class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> exte
     /** Check this item's type (or whether it's one among multiple types) without a call to `instanceof` */
     isOfType<T extends ItemType>(...types: T[]): this is ItemInstances<TParent>[T];
     isOfType(type: "physical"): this is PhysicalItemPF2e<TParent>;
+    isOfType(type: "shield"): this is PhysicalItemPF2e<TParent>;
     isOfType<T extends "physical" | ItemType>(...types: T[]): this is T extends "physical" ? PhysicalItemPF2e<TParent> : T extends ItemType ? ItemInstances<TParent>[T] : never;
     /** Redirect the deletion of any owned items to ActorPF2e#deleteEmbeddedDocuments for a single workflow */
     delete(context?: DocumentModificationContext<TParent>): Promise<this | undefined>;

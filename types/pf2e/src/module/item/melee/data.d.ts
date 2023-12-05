@@ -32,6 +32,9 @@ interface MeleeSystemData extends MeleeSystemSource, Omit<ItemSystemData, "level
     runes: {
         property: WeaponPropertyRuneType[];
     };
+    damage: {
+        damageType: string;
+    }
 }
 interface NPCAttackDamageSource {
     damage: string;

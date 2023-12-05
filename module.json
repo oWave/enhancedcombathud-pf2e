@@ -14,6 +14,9 @@
   "esmodules": [
     "dist/module.js"
   ],
+  "styles": [
+    "enhancedcombathud-pf2e.css"
+  ],
   "relationships": {
     "systems": [
       {
