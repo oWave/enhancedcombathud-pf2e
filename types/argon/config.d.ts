@@ -1,3 +1,11 @@
+interface ArgonUI {
+  ARGON: typeof CoreHUD
+}
+
+namespace globalThis {
+  var ui: ArgonUI
+}
+
 export interface ARGON {
   CORE: {
     CoreHUD: typeof CoreHUD

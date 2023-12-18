@@ -22,7 +22,8 @@
       "jquery",
       "node",
       "tooltipster",
-      "foundry"
+      "foundry",
+      "pf2e"
     ],
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
