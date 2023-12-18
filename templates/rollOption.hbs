@@ -1,0 +1,23 @@
+<div>
+  {{#if hasSuboptions}}
+    <div class="expandable">
+      {{#each suboptions}}
+        <div>
+          {{localize this.label}}
+        </div>
+      {{/each}}
+    </div>
+  {{/if}}
+  <div class="action-element ech-blur flex-grow" style="flex-direction: column; text-align: center;">
+    <div class="expand">
+      {{#if hasSuboptions}}
+        <i class="fa-solid fa-chevron-up"></i>
+        <p>{{#if selected}}{{localize selected.label}}{{/if}}</p>
+      {{/if}}
+    </div>
+    {{#unless alwaysActive}}
+      <p>{{#if checked}}Enabled{{else}}Disabled{{/if}}</p>
+    {{/unless}}
+    <p style="flex-grow: 0; justify-self: flex-end;">{{label}}</p>
+  </div>
+</div>
