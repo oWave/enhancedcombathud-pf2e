@@ -87,7 +87,7 @@ export class StrikeButton extends CONFIG.ARGON.CORE.ArgonComponent {
 
     this.element.querySelectorAll<HTMLButtonElement>(".versatile-options button").forEach((button) =>
       button.addEventListener("click", async () => {
-        const weapon = this.strike.item
+        const weapon = (this.strike as CharacterStrike).item
         const baseType = weapon?.system?.damage.damageType ?? null
         const selection =
           button.classList.contains("selected") || button.value === baseType ? null : (button.value as DamageType)
@@ -112,9 +112,8 @@ async function toggleWeaponTrait({ weapon, trait, selection }: ToggleWeaponTrait
   } else if (trait === "versatile" && item?.isOfType("shield")) {
     await item.update({ "system.traits.integrated.versatile.selection": selection })
   } else {
-    const rule = item?.rules.find(
-      (r): r is StrikeRuleElement => r.key === "Strike" && !r.ignored && r.slug === weapon.slug
-    )
+    // @ts-expect-error CharacterStrike is not asignable to StrikeData despite inheriting from it?
+    const rule = item?.rules.find<StrikeRuleElement>((r) => r.key === "Strike" && !r.ignored && r.slug === weapon.slug)
     await rule?.toggleTrait({ trait, selection })
   }
 
