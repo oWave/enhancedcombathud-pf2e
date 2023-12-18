@@ -4,20 +4,35 @@ import { WeaponPF2e } from "types/pf2e/src/module/item"
 import { toggleWeaponTrait as toggleWeaponTraitType } from "types/pf2e/src/module/item/weapon/helpers"
 import { DamageType } from "types/pf2e/src/module/system/damage"
 import { StrikeRuleElement } from "types/pf2e/src/module/rules/rule-element/strike"
+import { CharacterStrike } from "types/pf2e/src/module/actor/character/data"
 
 type ToggleWeaponTraitParams = Parameters<typeof toggleWeaponTraitType>[0]
 
 export class StrikeButton extends CONFIG.ARGON.CORE.ArgonComponent {
-  strike: StrikeData
+  strike: StrikeData | CharacterStrike
+  state: {
+    expanded: boolean
+  }
+
   constructor(strike: StrikeData) {
     super()
     this.strike = strike
+
+    ui.ARGON.hooks.callbacks.updateItem.set(this.strike.item.id, async (item) => {
+      this.strike = this.actor.system.actions?.find((s) => s.item.id == item.id)!
+      await this.render()
+    })
+
+    this.state = {
+      expanded: false,
+    }
   }
 
   async getData() {
     return {
       label: this.strike.label,
       icon: this.strike.item.img,
+      state: this.state,
       hasConfig: !!this.strike.versatileOptions.length,
       selectedVersatileOption: this.strike.versatileOptions.find((e) => e.selected),
       versatileOptions: this.strike.versatileOptions,
@@ -29,6 +44,14 @@ export class StrikeButton extends CONFIG.ARGON.CORE.ArgonComponent {
         }
       }),
     }
+  }
+
+  get actor(): ActorPF2e {
+    return super.actor
+  }
+
+  get item() {
+    return this.strike.item
   }
 
   get template(): string {
@@ -55,23 +78,22 @@ export class StrikeButton extends CONFIG.ARGON.CORE.ArgonComponent {
 
     this.element.querySelector(".ech-strike-config-header")?.addEventListener("click", () => {
       this.element.querySelector(".ech-strike-config")?.classList.add("open")
+      this.state.expanded = true
     })
     this.element.querySelector(".ech-strike-config-content .collapse")?.addEventListener("click", () => {
       this.element.querySelector(".ech-strike-config")?.classList.remove("open")
+      this.state.expanded = false
     })
 
     this.element.querySelectorAll<HTMLButtonElement>(".versatile-options button").forEach((button) =>
       button.addEventListener("click", async () => {
-        const weapon = this.strike.item as WeaponPF2e<ActorPF2e>
+        const weapon = this.strike.item
         const baseType = weapon?.system?.damage.damageType ?? null
         const selection =
           button.classList.contains("selected") || button.value === baseType ? null : (button.value as DamageType)
         const selectionIsValid = selection === null || selection in CONFIG.PF2E.damageTypes
         if (weapon && selectionIsValid) {
           await toggleWeaponTrait({ trait: "versatile", weapon, selection })
-          this.strike =
-            (this.actor as ActorPF2e).system.actions?.find((e) => e.item.id == this.strike.item.id) || this.strike
-          this.render()
         }
       })
     )
