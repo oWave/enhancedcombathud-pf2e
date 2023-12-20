@@ -18,7 +18,7 @@ export class StrikeButton extends CONFIG.ARGON.CORE.ArgonComponent {
     super()
     this.strike = strike
 
-    ui.ARGON.hooks.callbacks.updateItem.set(this.strike.item.id, async (item) => {
+    ui.ARGON.hooks.add("updateItem", this.strike.item.id, async (item) => {
       this.strike = this.actor.system.actions?.find((s) => s.item.id == item.id)!
       await this.render()
     })
