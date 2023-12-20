@@ -1,8 +1,8 @@
 <div>
   {{#if hasSuboptions}}
-    <div class="expandable">
+    <div class="expandable {{#if expanded}}open{{/if}}">
       {{#each suboptions}}
-        <div>
+        <div data-value="{{this.value}}">
           {{localize this.label}}
         </div>
       {{/each}}
@@ -16,7 +16,9 @@
       {{/if}}
     </div>
     {{#unless alwaysActive}}
-      <p>{{#if checked}}Enabled{{else}}Disabled{{/if}}</p>
+      <div class="toggle" style="font-size: x-large;">
+          <i class="{{icon}}"></i>
+        </div>
     {{/unless}}
     <p style="flex-grow: 0; justify-self: flex-end;">{{label}}</p>
   </div>
