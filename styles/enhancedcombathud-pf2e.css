@@ -1,0 +1,87 @@
+.extended-combat-hud {
+  .ech-strike-config {
+    background: var(--ech-mainAction-base-background) center no-repeat;
+    background-origin: content-box;
+    background-size: contain;
+    border: 1px solid var(--ech-mainAction-base-border);
+    color: var(--ech-mainAction-base-color);
+
+    border-radius: 10px 10px 0 0;
+
+    .ech-strike-config-header {
+      padding: 2px 1rem;
+      display: flex;
+      justify-content: center;
+      gap: 4px;
+
+      &:hover {
+        background-color: var(--ech-mainAction-hover-background);
+        border-color: var(--ech-mainAction-hover-border);
+        color: var(--ech-mainAction-hover-color);
+      }
+    }
+
+    .ech-strike-config-content {
+      display: none;
+    }
+
+    &.open {
+      .ech-strike-config-header {
+        display: none;
+      }
+      .ech-strike-config-content {
+        display: flex;
+      }
+    }
+
+    .ech-strike-config-content {
+      flex-direction: column;
+      text-align: center;
+
+      .collapse {
+        padding: 4px 0;
+
+        &:hover {
+          background-color: var(--ech-mainAction-hover-background);
+          border-color: var(--ech-mainAction-hover-border);
+          color: var(--ech-mainAction-hover-color);
+        }
+      }
+
+      .selected {
+        background-color: var(--text-dark);
+
+        i {
+          color: var(--bg-dark);
+        }
+      }
+    }
+  }
+
+  .expandable {
+    display: none;
+    &.open {
+      display: flex;
+    }
+
+    flex-direction: column;
+    text-align: center;
+    gap: 4px;
+
+    background: var(--ech-mainAction-base-background) center no-repeat;
+    background-origin: content-box;
+    background-size: contain;
+    border: 1px solid var(--ech-mainAction-base-border);
+    color: var(--ech-mainAction-base-color);
+
+    border-radius: 10px 10px 0 0;
+  }
+
+  .actions-container {
+    align-items: flex-end;
+  }
+
+  .flex-grow > * {
+    flex-grow: 1;
+  }
+}

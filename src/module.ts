@@ -1,8 +1,15 @@
-import { ActorPF2e } from "types/pf2e/src/module/actor/index"
+import type { ActorPF2e } from "types/pf2e/src/module/actor/index"
+import type { CoreHUD } from "types/argon/hud"
 import { StrikeButton } from "./components/strike"
+import { HUDHooks } from "./hooks"
+import { RollOptionButton } from "./components/rollOption"
 
-Hooks.on("argonInit", async (CoreHUD: any) => {
-  const ARGON = CoreHUD.ARGON
+Hooks.on("ready", () => {
+  ui.ARGON.hooks = new HUDHooks()
+})
+
+Hooks.on("argonInit", async (hud: typeof CoreHUD) => {
+  const ARGON = hud.ARGON
 
   class Pf2ePortraitPanel extends ARGON.PORTRAIT.PortraitPanel {
     constructor() {
@@ -48,7 +55,11 @@ Hooks.on("argonInit", async (CoreHUD: any) => {
     }
 
     async _getButtons() {
-      return (this.actor as ActorPF2e).system.actions?.filter(a => a.ready)?.map((e) => new StrikeButton(e))
+      const rollOptions = (this.actor as ActorPF2e).synthetics.toggles.map((e) => new RollOptionButton(e))
+      const strikes =
+        (this.actor as ActorPF2e).system.actions?.filter((a) => a.ready)?.map((e) => new StrikeButton(e)) ?? []
+
+      return [...rollOptions, ...strikes]
     }
   }
 
@@ -80,10 +91,10 @@ Hooks.on("argonInit", async (CoreHUD: any) => {
     }
   }
 
-  CoreHUD.definePortraitPanel(Pf2ePortraitPanel)
-  CoreHUD.defineDrawerPanel(Pf2eDrawerPanel)
-  CoreHUD.defineMainPanels([Pf2eStrikePanel, Pf2eReactionPanel, Pf2eSpellPanel, ARGON.PREFAB.PassTurnPanel])
+  hud.definePortraitPanel(Pf2ePortraitPanel)
+  hud.defineDrawerPanel(Pf2eDrawerPanel)
+  hud.defineMainPanels([Pf2eStrikePanel, Pf2eReactionPanel, Pf2eSpellPanel, ARGON.PREFAB.PassTurnPanel])
 
-  CoreHUD.defineMovementHud(null)
-  CoreHUD.defineSupportedActorTypes(["character", "npc"])
+  hud.defineMovementHud(null)
+  hud.defineSupportedActorTypes(["character", "npc"])
 })

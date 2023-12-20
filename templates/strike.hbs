@@ -1,5 +1,28 @@
 <div>
-  <div style="display: flex; flex-direction: column; width: 100%; align-items: stretch;" class="strikes-list">
+  {{#if hasConfig}}
+  <div class="ech-strike-config {{#if state.expanded}}open{{/if}}">
+    <div class="ech-strike-config-header">
+      <i class="fa-solid fa-{{selectedVersatileOption.glyph}} fa-fw icon"></i>
+      <i class="fa-solid fa-chevron-up"></i>
+    </div>
+    <div class="ech-strike-config-content">
+      {{#if versatileOptions}}
+          <p>Damage</p>
+          <div style="display: flex;" class="versatile-options">
+          {{#each versatileOptions}}
+            <button type="button" class="{{#if this.selected}}selected{{/if}}" data-tooltip="{{localize this.label}}" value="{{this.value}}" data-action="toggle-versatile" {{disabled this.selected}}>
+              <i class="fa-solid fa-{{this.glyph}} fa-fw icon"></i>
+            </button>
+        {{/each}}
+          </div>
+      {{/if}}
+      <div class="collapse">
+        <i class="fa-solid fa-chevron-down"></i>
+      </div>
+    </div>
+  </div>
+  {{/if}}
+  <div style="display: flex; flex-direction: column; width: 100%; align-items: stretch;" class="action-element ech-blur">
     {{#each buttons}}
       <button class="ech-strike-button" data-index="{{this.index}}">
           {{#if this.index}}
@@ -13,13 +36,4 @@
       <img src="{{icon}}" style="height: 30px;">
       <span>{{label}}</span>
     </div>
-    {{#if versatileOptions}}
-      <div class="versatile-options" style="display: flex;">
-        {{#each versatileOptions}}
-          <button type="button" class="damage color {{this.value}}{{#if this.selected}} selected{{/if}}" data-tooltip="{{localize this.label}}" value="{{this.value}}" data-action="toggle-versatile" {{disabled this.selected}}>
-            <i class="fa-solid fa-{{this.glyph}} fa-fw icon"></i>
-          </button>
-        {{/each}}
-      </div>
-    {{/if}}
 </div>
